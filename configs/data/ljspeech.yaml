@@ -1,22 +1,22 @@
 _target_: matcha.data.text_mel_datamodule.TextMelDataModule
 name: ljspeech
-train_filelist_path: data/LJSpeech-1.1/train.txt
-valid_filelist_path: data/LJSpeech-1.1/val.txt
-batch_size: 32
+train_filelist_path: /root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/train_matchatts.csv
+valid_filelist_path: /root/DATASETS/BRSpeech_CML_TTS_v14012024_24khz/test_matchatts.csv
+batch_size: 50
 num_workers: 20
 pin_memory: True
-cleaners: [english_cleaners2]
+cleaners: [portuguese_cleaners]
 add_blank: True
-n_spks: 1
+n_spks: 50
 n_fft: 1024
 n_feats: 80
-sample_rate: 22050
+sample_rate: 24000
 hop_length: 256
 win_length: 1024
 f_min: 0
 f_max: 8000
 data_statistics:  # Computed for ljspeech dataset
-  mel_mean: -5.536622
-  mel_std: 2.116101
+  mel_mean: -6.496245861053467
+  mel_std: 2.5245273113250732
 seed: ${seed}
 load_durations: false

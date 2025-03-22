@@ -25,7 +25,7 @@ critical_logger.setLevel(logging.CRITICAL)
 # now the phonemizer is not initialising at every call
 # Might be less flexible, but it is much-much faster
 global_phonemizer = phonemizer.backend.EspeakBackend(
-    language="en-us",
+    language="pt-br",
     preserve_punctuation=True,
     with_stress=True,
     language_switch="remove-flags",
@@ -92,6 +92,28 @@ def basic_cleaners(text):
     text = lowercase(text)
     text = collapse_whitespace(text)
     return text
+
+
+def portuguese_cleaners(text):
+    """Basic pipeline that lowercases and collapses whitespace without transliteration."""
+    text = lowercase(text)
+    text = collapse_whitespace(text)
+    text = convert_to_ascii(text)
+    #phonemes = global_phonemizer.phonemize([text], strip=True, njobs=1)[0]
+    # Added in some cases espeak is not removing brackets
+    #phonemes = remove_brackets(phonemes)
+    #phonemes = collapse_whitespace(phonemes)
+    return text
+
+def portuguese_phoneme_cleaners(text):
+    """Basic pipeline that lowercases and collapses whitespace without transliteration."""
+    text = lowercase(text)
+    text = collapse_whitespace(text)
+    phonemes = global_phonemizer.phonemize([text], strip=True, njobs=1)[0]
+    # Added in some cases espeak is not removing brackets
+    phonemes = remove_brackets(phonemes)
+    phonemes = collapse_whitespace(phonemes)
+    return phonemes
 
 
 def transliteration_cleaners(text):
